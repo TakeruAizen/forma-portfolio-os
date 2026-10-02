@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { AnimatePresence, motion, useDragControls } from 'motion/react'
 import {
   AppWindow, ArrowUpRight, Camera, Check, ChevronDown,
-  CircleHelp, Code2, FileText, FolderOpen, Globe2, Mail, Minus, Monitor,
+  Code2, FileText, FolderOpen, Globe2, Mail, Minus, Monitor,
   Moon, MoreHorizontal, MoveUpRight, Plus, Search, Settings2, Sun, X,
 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from 'react'
@@ -23,6 +23,19 @@ const APPS: { id: AppId; name: string; subtitle: string; icon: typeof FolderOpen
   { id: 'browser', name: 'Web Browser', subtitle: 'Live website', icon: Globe2, tone: 'blue' },
   { id: 'contact', name: 'Contact', subtitle: 'Instagram', icon: Camera, tone: 'pink' },
   { id: 'settings', name: 'Preferences', subtitle: 'Display', icon: Settings2, tone: 'slate' },
+]
+const DESKTOP_SHORTCUTS: { id: string; label: string; emoji: string; app: AppId }[] = [
+  { id: 'projects', label: 'Projects', emoji: '📁', app: 'work' },
+  { id: 'websites', label: 'Websites', emoji: '🖥️', app: 'work' },
+  { id: 'services', label: 'Services', emoji: '🧩', app: 'services' },
+  { id: 'about', label: 'About Marco', emoji: '🪪', app: 'about' },
+  { id: 'proof', label: 'Proof & concepts', emoji: '🏆', app: 'work' },
+  { id: 'socials', label: 'Socials', emoji: '📸', app: 'contact' },
+  { id: 'founder', label: 'Founder.txt', emoji: '📄', app: 'about' },
+  { id: 'whiteboard', label: 'Whiteboard', emoji: '📝', app: 'notes' },
+  { id: 'browser', label: 'Browser', emoji: '🌐', app: 'browser' },
+  { id: 'message', label: 'Leave a message', emoji: '✉️', app: 'contact' },
+  { id: 'preferences', label: 'Preferences', emoji: '⚙️', app: 'settings' },
 ]
 
 const LIVE_SITE = ownerProfile.projects.find((project) => project.kind === 'live')?.url ?? ''
@@ -46,6 +59,8 @@ export function PersonalOS() {
   const [notes, setNotes] = useState<Note[]>([])
   const [mood, setMood] = useState<'happy' | 'sad' | 'celebrating'>('happy')
   const [welcomeOpen, setWelcomeOpen] = useState(true)
+  const [booting, setBooting] = useState(true)
+  const [bootProgress, setBootProgress] = useState(0)
   const workspaceRef = useRef<HTMLElement>(null)
   const windowRef = useRef<HTMLElement>(null)
 
@@ -61,15 +76,24 @@ export function PersonalOS() {
         if (Array.isArray(value)) setNotes(value)
       }
     } catch { /* Ignore malformed session notes and keep an empty board. */ }
-    const tick = () => setClock(new Intl.DateTimeFormat('en', { hour: '2-digit', minute: '2-digit', hour12: true }).format(new Date()))
+    const tick = () => setClock(new Intl.DateTimeFormat('en', { hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date()))
     tick()
     const timer = window.setInterval(tick, 30_000)
+    let progress = 0
+    const bootTimer = window.setInterval(() => {
+      progress = Math.min(100, progress + 5)
+      setBootProgress(progress)
+      if (progress >= 100) {
+        window.clearInterval(bootTimer)
+        window.setTimeout(() => setBooting(false), 180)
+      }
+    }, 80)
     const shortcut = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); setSearchOpen(true) }
       if (event.key === 'Escape') { setSearchOpen(false); setActive(null) }
     }
     window.addEventListener('keydown', shortcut)
-    return () => { window.clearInterval(timer); window.removeEventListener('keydown', shortcut) }
+    return () => { window.clearInterval(timer); window.clearInterval(bootTimer); window.removeEventListener('keydown', shortcut) }
   }, [])
 
   useEffect(() => {
@@ -103,14 +127,16 @@ export function PersonalOS() {
         <div className="flex min-w-0 items-center gap-3">
           <button className="os-brand" onClick={() => setActive(null)} aria-label="Return to Marco’s portfolio desktop"><span className="os-brand-mark">M</span><span>MARCO</span></button>
           <span className="os-menubar-separator hidden h-5 w-px sm:block" />
-          <span className="os-menubar-subtitle hidden text-xs sm:inline">PORTFOLIO DESKTOP</span>
+          <span className="os-menubar-subtitle hidden text-xs sm:inline">OS v1.0 · PORTFOLIO EDITION</span>
           <div className="hidden items-center gap-1 md:flex">
             <button className="os-menulink" onClick={() => openApp('work')}>Work</button>
-            <button className="os-menulink" onClick={() => openApp('about')}>About</button>
-            <button className="os-menulink" onClick={() => openApp('services')}>Services</button>
+            <button className="os-menulink" onClick={() => openApp('work')}>Proof</button>
+            <button className="os-menulink" onClick={() => openApp('about')}>Journey</button>
           </div>
         </div>
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <button className="os-top-action hidden sm:inline-flex" onClick={() => setActive(null)}>Show Desktop</button>
+          <button className="os-top-action hidden sm:inline-flex" onClick={() => setWelcomeOpen(true)}>Daily Transmission</button>
           <button onClick={() => setSearchOpen(true)} className="os-search-trigger" aria-label="Search apps"><Search size={15}/><span className="hidden sm:inline">Search</span><kbd className="hidden lg:inline">⌘ K</kbd></button>
           <button className="os-clock" onClick={() => openApp('settings')} aria-label="Open settings">{clock || '—:—'}</button>
           <button className="os-status" onClick={() => setTheme(theme === 'day' ? 'night' : theme === 'night' ? 'dark' : 'day')} aria-label={`Theme: ${theme}; change theme`}>
@@ -121,29 +147,25 @@ export function PersonalOS() {
 
       <section className="os-workspace relative z-10 flex flex-1 flex-col" aria-label="Marco’s portfolio desktop">
         <div className="os-desktop-icons" aria-label="Desktop applications">
-          {APPS.map((app) => <DesktopIcon key={app.id} app={app} onClick={() => openApp(app.id)} />)}
+          {DESKTOP_SHORTCUTS.map((shortcut) => <DesktopIcon key={shortcut.id} label={shortcut.label} emoji={shortcut.emoji} onClick={() => openApp(shortcut.app)} />)}
           <a className="os-desktop-icon os-live-link" href={LIVE_SITE} target="_blank" rel="noreferrer"><span className="os-icon-tile tone-slate">🌐</span><span>Forma Website</span></a>
         </div>
 
-        <aside className="os-pixel-note">
-          <span className="os-pixel-note-pin" aria-hidden="true">✦</span>
-          <p>HELLO, I’M MARCO</p>
-          <h1>Professionalism<br />starts here.</h1>
-          <span>Websites · Editing · Ideas</span>
-          <button onClick={() => openApp('contact')}>Say hello <ArrowUpRight size={13}/></button>
-        </aside>
+        {welcomeOpen && <aside className="os-pixel-note">
+          <button className="os-pixel-note-close" aria-label="Dismiss daily note" onClick={() => setWelcomeOpen(false)}>×</button>
+          <p>MARCO OS / DAILY TRANSMISSION</p>
+          <h1>We Build n We Conquer.</h1>
+          <span>Web development · editing · entrepreneurship</span>
+          <button onClick={() => openApp('notes')}>Open whiteboard <ArrowUpRight size={13}/></button>
+        </aside>}
 
-        <div className="os-desktop-hint"><span>CLICK A SHORTCUT TO EXPLORE</span><span className="os-hint-line"/><span>MARCO / PORTFOLIO</span></div>
+        <div className="os-desktop-hint"><span>OPEN AN APP TO EXPLORE</span><span className="os-hint-line"/><span>MARCO OS / DESKTOP</span></div>
 
         <div className="os-dock-wrap"><nav className="os-dock" aria-label="Application dock">
-          {APPS.filter((app) => ['work','services','notes','browser','contact'].includes(app.id)).map((app) => <button key={app.id} className={`os-dock-icon ${active === app.id ? 'is-active' : ''}`} onClick={() => openApp(app.id)} aria-label={`Open ${app.name}`} title={app.name}><span className={`os-icon-tile tone-${app.tone}`}><app.icon size={21}/></span><i/></button>)}
+          {APPS.filter((app) => ['work','about','services','notes','browser','contact'].includes(app.id)).map((app) => <button key={app.id} className={`os-dock-icon ${active === app.id ? 'is-active' : ''}`} onClick={() => openApp(app.id)} aria-label={`Open ${app.name}`} title={app.name}><span className={`os-icon-tile tone-${app.tone}`}><app.icon size={21}/></span><i/></button>)}
           <span className="os-dock-separator"/>
           <button className="os-dock-icon" onClick={() => openApp('settings')} aria-label="Open preferences" title="Preferences"><span className="os-icon-tile tone-slate"><Settings2 size={21}/></span><i/></button>
         </nav></div>
-
-        <AnimatePresence>
-          {welcomeOpen && <motion.button initial={{opacity:0,y:8}} animate={{opacity:1,y:0}} exit={{opacity:0}} onClick={() => setWelcomeOpen(false)} className="os-tip" aria-label="Dismiss desktop hint"><CircleHelp size={14}/> Your workspace is ready <X size={13}/></motion.button>}
-        </AnimatePresence>
 
         <AnimatePresence>
           {currentApp && <motion.section ref={windowRef} tabIndex={-1} key={active} initial={{opacity:0,y:16,scale:.985}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:10,scale:.99}} transition={{duration:.2}} className="os-window" role="dialog" aria-modal="true" aria-labelledby="window-title" onKeyDown={(event) => {
@@ -186,13 +208,24 @@ export function PersonalOS() {
       <motion.div drag dragMomentum={false} dragConstraints={workspaceRef} dragElastic={0} className="os-buddy-drag" whileDrag={{scale:1.08}}>
         <button className="os-buddy-button" onClick={() => setMood(mood === 'happy' ? 'celebrating' : mood === 'celebrating' ? 'sad' : 'happy')} aria-label="Marco’s pixel doodle; drag to move or tap to change expression"><FormaBuddy mood={mood}/></button>
       </motion.div>
+      <AnimatePresence>
+        {booting && <motion.div className="os-boot-screen" initial={{opacity:1}} exit={{opacity:0}} transition={{duration:.35}}>
+          <button className="os-boot-skip" onClick={() => setBooting(false)}>SKIP BOOT ↗</button>
+          <div className="os-boot-card">
+            <span className="os-boot-mark">M</span>
+            <p>MARCO OS v1.0 · PORTFOLIO EDITION</p>
+            <h1>Waking up the desktop<span className="os-boot-dots">...</span></h1>
+            <div className="os-boot-progress"><i style={{width:`${bootProgress}%`}} /></div>
+            <span className="os-boot-percent">STARTING PORTFOLIO · {bootProgress}%</span>
+          </div>
+        </motion.div>}
+      </AnimatePresence>
     </main>
   )
 }
 
-function DesktopIcon({app,onClick}:{app:typeof APPS[number];onClick:()=>void}) {
-  const art: Record<AppId, string> = { work: '📁', about: '🪪', services: '🧩', notes: '📝', browser: '🌐', contact: '✉️', settings: '⚙️' }
-  return <button className="os-desktop-icon" onClick={onClick}><span className={`os-icon-tile tone-${app.tone}`} aria-hidden="true">{art[app.id]}</span><span>{app.name}</span></button>
+function DesktopIcon({label,emoji,onClick}:{label:string;emoji:string;onClick:()=>void}) {
+  return <button className="os-desktop-icon" onClick={onClick}><span className="os-icon-tile" aria-hidden="true">{emoji}</span><span>{label}</span></button>
 }
 
 function PixelLandscape({ theme }: { theme: Theme }) {
