@@ -1,0 +1,135 @@
+{
+  "identity": {
+    "fullName": "Marco",
+    "shortName": "Marco",
+    "osName": "Forma",
+    "domain": "TBD (Vercel URL for now)",
+    "location": "International",
+    "timezone": "TBD",
+    "pronouns": "he/him",
+    "profession": "Web development",
+    "roles": ["Developer", "Editor", "Entrepreneur"],
+    "headline": "Professionalism Starts Here",
+    "intro": "We Build n We Conquer",
+    "partner": "Lionel",
+    "portrait": "",
+    "sprite": ""
+  },
+  "imageGeneration": {
+    "mode": "codex-native",
+    "provider": "Codex native image generation selected; tool unavailable in this session",
+    "model": "TBD",
+    "apiKeyEnvironmentVariable": "",
+    "approvedSourceImages": [],
+    "likenessNotes": "Supplied reference images do not depict Marco. Do not recreate the people shown.",
+    "requiredOutputs": ["Original non-identifiable companion with happy, sad, and celebrating states"],
+    "finalApprovalBy": "Marco"
+  },
+  "assets": {
+    "canonicalLocation": "TBD; two image attachments were supplied",
+    "approvedPhotoSources": ["ChatGPT Image Sep 27, 2026, 12_29_23 AM.png", "Eric roberts.jpg"],
+    "assetPermissions": "TBD; photos are not Marco and are not used as likeness sources",
+    "protectedBackgroundAssets": ["Existing snowfall animation", "Opening sequence grid and transition", "Hero grid and rotating/floating rings"],
+    "mobileMediaLimit": "No limit specified"
+  },
+  "companion": {
+    "direction": "Original pixel-editorial SVG mascot; it does not resemble either supplied reference person",
+    "states": ["happy", "sad", "celebrating"],
+    "behavior": "Local mood control only; no AI service or model is configured",
+    "positionPersistence": "Reset to the safe corner on reload"
+  },
+  "conversion": {
+    "primaryLabel": "Explore my work",
+    "primaryUrl": "#work",
+    "secondaryLabel": "Say hello",
+    "secondaryUrl": "https://www.instagram.com/forma.hub",
+    "bookingUrl": null,
+    "whatsappUrl": null,
+    "email": null,
+    "emergencyLabel": null
+  },
+  "metrics": [],
+  "projects": [
+    {
+      "id": "forma-live",
+      "name": "Forma Website",
+      "kind": "live",
+      "category": "Website development",
+      "url": "https://forma-website-design.vercel.app/",
+      "image": null,
+      "disclosure": "Owner-provided live project link; project outcomes are not claimed."
+    },
+    {
+      "id": "noir",
+      "name": "NOIR",
+      "kind": "concept",
+      "category": "Coffee brand concept",
+      "url": "/work/noir",
+      "image": "/work/noir.png",
+      "disclosure": "Fictional demonstration concept; not client work."
+    },
+    {
+      "id": "north",
+      "name": "NORTH",
+      "kind": "concept",
+      "category": "Restaurant concept",
+      "url": "/work/north",
+      "image": "/work/north.png",
+      "disclosure": "Fictional demonstration concept; not client work."
+    },
+    {
+      "id": "aura",
+      "name": "AURA",
+      "kind": "concept",
+      "category": "Skincare concept",
+      "url": "/work/project-03",
+      "image": "/work/mono.png",
+      "disclosure": "Fictional demonstration concept; not client work."
+    },
+    {
+      "id": "meridian",
+      "name": "MERIDIAN",
+      "kind": "concept",
+      "category": "Architecture concept",
+      "url": "/work/project-04",
+      "image": "/work/nova.png",
+      "disclosure": "Fictional demonstration concept; not client work."
+    }
+  ],
+  "clientCases": [],
+  "testimonials": [],
+  "journey": [],
+  "achievements": [],
+  "services": ["Website development"],
+  "videos": [],
+  "music": [],
+  "socials": [
+    { "name": "Instagram", "handle": "@forma.hub", "url": "https://www.instagram.com/forma.hub", "public": true }
+  ],
+  "articles": [],
+  "themes": { "available": ["day", "night", "dark"], "default": "night", "textSize": ["standard", "large"] },
+  "legal": {
+    "copyrightOwner": "TBD",
+    "assetLicenses": ["Existing repository assets; individual permissions not inventoried"],
+    "metricDisclaimer": "No metrics supplied."
+  },
+  "integrations": {
+    "hosting": "Vercel",
+    "repository": "TBD; no Git remote configured in the open project folder",
+    "backend": "Required; provider TBD",
+    "forms": "TBD",
+    "analytics": "Vercel Analytics, gated behind opt-in consent",
+    "consentBanner": true,
+    "visitorDataPersistence": "No localStorage. Session-scoped notes, consent, theme, and text size only."
+  },
+  "unresolved": [
+    "GitHub repository and working branch",
+    "Backend and form provider",
+    "Approved personal portrait or likeness reference",
+    "Asset ownership and permissions",
+    "Project case-study facts, client names, and results",
+    "Contact details beyond Instagram",
+    "Domain, analytics policy, and license"
+  ],
+  "launchDeadline": "7–12 days after 2026-10-02"
+}
