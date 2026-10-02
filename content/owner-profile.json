@@ -34,7 +34,7 @@
   },
   "companion": {
     "direction": "Original pixel-art doodle of a generic young person, styled to match the supplied desktop reference without recreating its pictured people",
-    "states": ["happy", "sad", "celebrating"],
+    "states": ["happy", "sad", "celebrating", "thinking"],
     "behavior": "Local mood control only; no AI service or model is configured",
     "positionPersistence": "Reset to the safe corner on reload"
   },

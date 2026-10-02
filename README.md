@@ -1,6 +1,6 @@
 # Marco’s Portfolio Desktop
 
-Marco’s separate responsive portfolio, presented as a warm pixel-art desktop. The animated clouds, swaying meadow, shortcuts, and illustrated companion are built for this project. This is an independent Next.js project and Vercel deployment; it does not replace the original Forma website.
+Marco’s separate portfolio, presented as a personal operating system. It opens with a scan-lined startup screen, then a soft sunset landscape with drifting clouds, animated flowers, desktop apps, and an illustrated companion. This is an independent Next.js project and Vercel deployment; it does not replace the original Forma website.
 
 ## Run locally
 
