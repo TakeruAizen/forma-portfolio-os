@@ -8,7 +8,6 @@ import {
   Moon, MoreHorizontal, MoveUpRight, Plus, Search, Settings2, Sun, X,
 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from 'react'
-import { Snowfall } from '@/components/snowfall'
 import ownerProfile from '@/content/owner-profile.json'
 
 type AppId = 'work' | 'about' | 'services' | 'notes' | 'browser' | 'settings' | 'contact'
@@ -99,19 +98,12 @@ export function PersonalOS() {
 
   return (
     <main ref={workspaceRef} data-text-size={textSize} className={`personal-os theme-${theme} relative isolate flex min-h-svh flex-col overflow-hidden`}>
-      <div className="os-wallpaper" aria-hidden="true">
-        <div className="os-aurora" />
-        <div className="grid-bg radial-fade os-preserved-grid" />
-        <motion.div animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: 'linear' }} className="os-original-ring ring-one" />
-        <motion.div animate={{ rotate: -360 }} transition={{ duration: 90, repeat: Infinity, ease: 'linear' }} className="os-original-ring ring-two" />
-        <motion.div animate={{ y: [0, -24, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} className="os-original-diamond" />
-      </div>
-      <Snowfall />
+      <PixelLandscape theme={theme} />
       <header className="os-menubar relative z-30 flex h-14 shrink-0 items-center justify-between px-3 sm:px-6">
         <div className="flex min-w-0 items-center gap-3">
-          <button className="os-brand" onClick={() => setActive(null)} aria-label={`Return to ${ownerProfile.identity.osName} desktop`}><span className="os-brand-mark">F</span><span>{ownerProfile.identity.osName.toUpperCase()}</span></button>
+          <button className="os-brand" onClick={() => setActive(null)} aria-label="Return to Marco’s portfolio desktop"><span className="os-brand-mark">M</span><span>MARCO</span></button>
           <span className="os-menubar-separator hidden h-5 w-px sm:block" />
-          <span className="os-menubar-subtitle hidden text-xs sm:inline">{ownerProfile.identity.fullName}’s Desktop</span>
+          <span className="os-menubar-subtitle hidden text-xs sm:inline">PORTFOLIO DESKTOP</span>
           <div className="hidden items-center gap-1 md:flex">
             <button className="os-menulink" onClick={() => openApp('work')}>Work</button>
             <button className="os-menulink" onClick={() => openApp('about')}>About</button>
@@ -127,37 +119,21 @@ export function PersonalOS() {
         </div>
       </header>
 
-      <section className="os-workspace relative z-10 flex flex-1 flex-col" aria-label="Forma desktop">
+      <section className="os-workspace relative z-10 flex flex-1 flex-col" aria-label="Marco’s portfolio desktop">
         <div className="os-desktop-icons" aria-label="Desktop applications">
-          {APPS.slice(0, 4).map((app) => <DesktopIcon key={app.id} app={app} onClick={() => openApp(app.id)} />)}
-          <a className="os-desktop-icon os-live-link" href={LIVE_SITE} target="_blank" rel="noreferrer"><span className="os-icon-tile tone-slate"><Globe2 size={23}/></span><span>Live Site</span></a>
+          {APPS.map((app) => <DesktopIcon key={app.id} app={app} onClick={() => openApp(app.id)} />)}
+          <a className="os-desktop-icon os-live-link" href={LIVE_SITE} target="_blank" rel="noreferrer"><span className="os-icon-tile tone-slate">🌐</span><span>Forma Website</span></a>
         </div>
 
-        <div className="os-welcome-card">
-          <div className="os-welcome-kicker"><span className="os-online-dot"/> PERSONAL OPERATING SYSTEM <span className="os-kicker-id">V.01</span></div>
-          <div className="os-welcome-main">
-            <div className="os-welcome-copy">
-              <p className="os-eyebrow">{ownerProfile.identity.roles.join(' · ').toUpperCase()}</p>
-              <h1>{ownerProfile.identity.headline.split(' ').slice(0, 1).join(' ')}<br/><span>{ownerProfile.identity.headline.split(' ').slice(1).join(' ')}.</span></h1>
-              <p className="os-supporting">{ownerProfile.identity.intro}</p>
-              <div className="os-welcome-actions">
-                <button onClick={() => openApp('work')} className="os-primary-btn">Explore my work <MoveUpRight size={16}/></button>
-                <button onClick={() => openApp('contact')} className="os-secondary-btn"><Camera size={15}/> Say hello</button>
-              </div>
-                <button className="os-work-summary" onClick={() => openApp('work')}>
-                <span>WORKSPACE</span><b>1 live site · {DEMOS.length} fictional concepts</b><ArrowUpRight size={14}/>
-              </button>
-            </div>
-            <div className="os-profile-card">
-              <FormaBuddy mood={mood} onClick={() => setMood(mood === 'happy' ? 'celebrating' : mood === 'celebrating' ? 'sad' : 'happy')} />
-              <div className="os-profile-caption"><span className="os-profile-name">{ownerProfile.identity.fullName}</span><span>{ownerProfile.identity.osName} · Web development</span></div>
-              <span className="os-profile-hint">TAP TO CHANGE MOOD</span>
-            </div>
-          </div>
-          <div className="os-welcome-foot"><span>DESIGN WITH INTENTION</span><span>BUILD WITH CARE</span><span className="hidden sm:inline">SCROLL LESS · EXPLORE MORE</span></div>
-        </div>
+        <aside className="os-pixel-note">
+          <span className="os-pixel-note-pin" aria-hidden="true">✦</span>
+          <p>HELLO, I’M MARCO</p>
+          <h1>Professionalism<br />starts here.</h1>
+          <span>Websites · Editing · Ideas</span>
+          <button onClick={() => openApp('contact')}>Say hello <ArrowUpRight size={13}/></button>
+        </aside>
 
-        <div className="os-desktop-hint"><span>OPEN AN APP TO EXPLORE</span><span className="os-hint-line"/><span>FORMA / DESKTOP</span></div>
+        <div className="os-desktop-hint"><span>CLICK A SHORTCUT TO EXPLORE</span><span className="os-hint-line"/><span>MARCO / PORTFOLIO</span></div>
 
         <div className="os-dock-wrap"><nav className="os-dock" aria-label="Application dock">
           {APPS.filter((app) => ['work','services','notes','browser','contact'].includes(app.id)).map((app) => <button key={app.id} className={`os-dock-icon ${active === app.id ? 'is-active' : ''}`} onClick={() => openApp(app.id)} aria-label={`Open ${app.name}`} title={app.name}><span className={`os-icon-tile tone-${app.tone}`}><app.icon size={21}/></span><i/></button>)}
@@ -182,7 +158,7 @@ export function PersonalOS() {
             <header className="os-window-titlebar">
               <div className="os-window-controls"><button aria-label="Close window" onClick={() => setActive(null)}><X size={12}/></button><button aria-label="Minimize window" onClick={() => setActive(null)}><Minus size={12}/></button><button aria-label="Open preferences" onClick={() => openApp('settings')}><MoreHorizontal size={12}/></button></div>
               <h2 id="window-title">{currentApp.name}</h2>
-              <span className="os-window-title-end">FORMA OS <span>·</span> {currentApp.subtitle}</span>
+              <span className="os-window-title-end">MARCO DESKTOP <span>·</span> {currentApp.subtitle}</span>
             </header>
             <div className="os-window-content">
               {active === 'work' && <WorkApp/>}
@@ -202,19 +178,54 @@ export function PersonalOS() {
           <motion.div className="os-search-panel" initial={{opacity:0,y:-10,scale:.98}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:-10,scale:.98}}>
             <label className="os-search-input"><Search size={18}/><input autoFocus value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search apps and tools…" onKeyDown={(event) => {if(event.key==='Enter'&&filteredApps[0])openApp(filteredApps[0].id)}}/><kbd>ESC</kbd></label>
             <div className="os-search-results">{filteredApps.map((app) => <button key={app.id} onClick={() => openApp(app.id)}><span className={`os-icon-tile tone-${app.tone}`}><app.icon size={18}/></span><span><b>{app.name}</b><small>{app.subtitle}</small></span><ArrowUpRight size={15}/></button>)}{filteredApps.length===0&&<p>No apps found.</p>}</div>
-            <div className="os-search-foot">FORMA QUICK FIND <span>Navigate your desktop</span></div>
+            <div className="os-search-foot">MARCO QUICK FIND <span>Navigate your desktop</span></div>
           </motion.div>
         </motion.div>}
       </AnimatePresence>
 
       <motion.div drag dragMomentum={false} dragConstraints={workspaceRef} dragElastic={0} className="os-buddy-drag" whileDrag={{scale:1.08}}>
-        <button className="os-buddy-button" onClick={() => setMood(mood === 'happy' ? 'celebrating' : mood === 'celebrating' ? 'sad' : 'happy')} aria-label="Forma companion, drag to move or tap to change mood"><FormaBuddy mood={mood} compact/></button>
+        <button className="os-buddy-button" onClick={() => setMood(mood === 'happy' ? 'celebrating' : mood === 'celebrating' ? 'sad' : 'happy')} aria-label="Marco’s pixel doodle; drag to move or tap to change expression"><FormaBuddy mood={mood}/></button>
       </motion.div>
     </main>
   )
 }
 
-function DesktopIcon({app,onClick}:{app:typeof APPS[number];onClick:()=>void}) { return <button className="os-desktop-icon" onClick={onClick}><span className={`os-icon-tile tone-${app.tone}`}><app.icon size={23}/></span><span>{app.name}</span></button> }
+function DesktopIcon({app,onClick}:{app:typeof APPS[number];onClick:()=>void}) {
+  const art: Record<AppId, string> = { work: '📁', about: '🪪', services: '🧩', notes: '📝', browser: '🌐', contact: '✉️', settings: '⚙️' }
+  return <button className="os-desktop-icon" onClick={onClick}><span className={`os-icon-tile tone-${app.tone}`} aria-hidden="true">{art[app.id]}</span><span>{app.name}</span></button>
+}
+
+function PixelLandscape({ theme }: { theme: Theme }) {
+  return (
+    <div className={`os-pixel-landscape theme-${theme}`} aria-hidden="true">
+      <svg className="os-pixel-art" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" shapeRendering="crispEdges">
+        <defs>
+          <linearGradient id="pixel-sky" x1="0" x2="0" y1="0" y2="1"><stop stopColor="#f8d5a1"/><stop offset=".48" stopColor="#f19a83"/><stop offset="1" stopColor="#c76372"/></linearGradient>
+          <linearGradient id="pixel-sun" x1="0" x2="0" y1="0" y2="1"><stop stopColor="#fff2b6"/><stop offset="1" stopColor="#ffd077"/></linearGradient>
+          <pattern id="pixel-grain" width="12" height="12" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="2" height="2" fill="#fff3d4" opacity=".25"/><rect x="8" y="7" width="2" height="2" fill="#9d5267" opacity=".16"/></pattern>
+        </defs>
+        <rect width="1440" height="900" fill="url(#pixel-sky)"/>
+        <rect width="1440" height="740" fill="url(#pixel-grain)"/>
+        <g className="pixel-stars" fill="#fff6d9">
+          <path d="M1110 105h7v18h-7zm-6 6h19v7h-19zM960 210h5v14h-5zm-5 5h15v5h-15zM1290 282h6v16h-6zm-5 5h16v6h-16zM680 95h5v14h-5zm-5 5h15v5h-15zM470 290h5v13h-5zm-4 4h13v5h-13zM1370 180h5v14h-5zm-5 5h15v5h-15z"/>
+          <path d="M1040 345h4v10h-4zm-3 3h10v4h-10zM820 155h4v10h-4zm-3 3h10v4h-10zM330 175h4v10h-4zm-3 3h10v4h-10z" opacity=".8"/>
+        </g>
+        <g className="pixel-sun"><path d="M590 515h20v-12h20v-12h180v12h20v12h20v20h12v120h-12v20h-20v12h-20v12H630v-12h-20v-12h-20v-20h-12V535h12z" fill="url(#pixel-sun)" opacity=".88"/></g>
+        <g className="pixel-cloud cloud-drift-a" fill="#ffe3bd"><path d="M70 254h30v-18h42v-18h66v18h24v18h30v30h18v30H52v-30h18z"/><path d="M60 314h220v15H60z" fill="#efaa9a"/></g>
+        <g className="pixel-cloud cloud-drift-b" fill="#ffe6c5"><path d="M410 370h26v-14h38v-24h70v14h26v24h26v24h14v24H390v-24h20z"/><path d="M398 414h220v12H398z" fill="#eea698"/></g>
+        <g className="pixel-cloud cloud-drift-c" fill="#ffe7c6"><path d="M965 205h22v-13h40v-22h68v14h22v21h25v23h14v24H950v-24h15z"/><path d="M955 247h215v12H955z" fill="#efa493"/></g>
+        <g className="pixel-cloud cloud-drift-d" fill="#ffddb6"><path d="M1190 420h18v-12h35v-20h54v12h23v20h20v20h12v20h-174v-20h12z"/><path d="M1178 458h185v12h-185z" fill="#e99b90"/></g>
+        <g className="pixel-cloud cloud-drift-e" fill="#ffdfbd"><path d="M145 505h20v-12h38v-21h58v14h23v19h22v22h13v19H130v-19h15z"/><path d="M137 541h190v12H137z" fill="#e9998a"/></g>
+        <path d="M0 720h120v-12h110v12h100v-12h115v12h100v-12h125v12h130v-12h100v12h120v-12h110v12h110v180H0z" fill="#665244"/>
+        <path d="M0 750h90v-12h80v12h115v-15h95v15h130v-12h100v12h120v-15h110v15h130v-12h95v12h120v-15h100v15h65v150H0z" fill="#555239"/>
+        <path d="M0 795h130v-12h115v12h105v-10h150v10h120v-14h105v14h130v-12h120v12h115v-10h130v10h120v105H0z" fill="#373f32"/>
+        <path d="M0 845h100v-10h100v10h150v-12h100v12h110v-9h150v9h120v-12h110v12h135v-10h120v10h145v55H0z" fill="#293b32"/>
+        <g className="pixel-meadow" fill="#f6d58b"><path d="M160 742h6v-12h6v12h6v6h-18zM500 786h6v-11h6v11h6v6h-18zM1060 752h6v-12h6v12h6v6h-18zM1290 815h5v-10h5v10h5v5h-15z"/></g>
+        <g className="pixel-lilies" fill="#f4c8ae"><path d="M350 802h5v-50h5v50h13v5h-23zM342 745h10v10h-10zM359 730h10v10h-10zM373 746h10v10h-10z"/><path d="M890 800h5v-42h5v42h12v5h-22zM882 750h10v10h-10zM900 734h10v10h-10zM914 750h10v10h-10z"/></g>
+      </svg>
+    </div>
+  )
+}
 
 function FormaBuddy({
   mood,
@@ -225,15 +236,22 @@ function FormaBuddy({
   onClick?: () => void
   compact?: boolean
 }) {
-  const face = mood === 'sad' ? 'M20 25 Q25 19 30 25' : 'M20 22 Q25 28 30 22'
   const art = (
-    <svg viewBox="0 0 50 54" aria-hidden="true" focusable="false" className={compact ? 'os-buddy-svg compact' : 'os-buddy-svg'}>
-      <path d="M15 6h20v4h5v7h4v22h-5v6H11v-6H6V17h4v-7h5z" fill="#b8f2d8" stroke="#123c43" strokeWidth="2" shapeRendering="crispEdges" />
-      <path d="M18 16h4v4h-4zm10 0h4v4h-4z" fill="#153e47" shapeRendering="crispEdges" />
-      <path d={face} fill="none" stroke="#153e47" strokeWidth="2.5" strokeLinecap="square" />
-      <path d="M5 29H1v8h4m40-8h4v8h-4" fill="#f3bc87" stroke="#123c43" strokeWidth="2" shapeRendering="crispEdges" />
-      <path d="M14 44v6h7v-6m8 0v6h7v-6" fill="#ffb78c" stroke="#123c43" strokeWidth="2" shapeRendering="crispEdges" />
-      {mood === 'celebrating' && <path d="M4 7l2 3 3-2m32 1 2 3 3-2" fill="none" stroke="#ffd27d" strokeWidth="2" />}
+    <svg viewBox="0 0 96 184" aria-hidden="true" focusable="false" className={`os-buddy-svg ${compact ? 'compact' : ''}`} shapeRendering="crispEdges">
+      <ellipse cx="48" cy="174" rx="34" ry="6" fill="#583d43" opacity=".55"/>
+      <g className="buddy-sparkles" fill="#fff0a9"><path d="M8 48h6v18H8zm-6 6h18v6H2zM78 26h5v15h-5zm-5 5h15v5H73z"/></g>
+      <path d="M28 120h17v37H29v-7h-5v-22h4zm24 0h17v8h5v22h-5v7H52z" fill="#292a38"/>
+      <path d="M28 151h18v9h5v7H22v-7h6zm24 0h18v9h5v7H47v-7h5z" fill="#422b35"/>
+      <path d="M27 78h42v43H27zM20 84h8v25h-8zm48 0h8v25h-8z" fill="#a93f46"/>
+      <path d="M28 82h9v8h-9zm31 0h9v8h-9z" fill="#d85a55"/>
+      <path d="M19 91h10v9h23v8H29v7h-9zm57 0H66v9H43v8h23v7h10z" fill="#d5a17a"/>
+      <path d="M27 34h42v39H27z" fill="#d6a17c"/>
+      <path d="M22 20h10V9h37v8h10v17h-9V27H33v8h-6v8h-9V26h4z" fill="#302c31"/>
+      <path d="M22 34h9v8h-9zm46-8h9v9h-9zM32 8h36v8H32z" fill="#43343a"/>
+      <path d="M36 43h6v6h-6zm19 0h6v6h-6z" fill="#312932"/>
+      <path d={mood === 'sad' ? 'M41 61h6v-4h7v4h6' : 'M41 56h6v5h7v-5h6'} fill="none" stroke="#6b343c" strokeWidth="3"/>
+      <path d="M24 31h5v9h-5zm43 0h5v9h-5z" fill="#d6a17c"/>
+      {mood === 'celebrating' && <g fill="#ffe071"><path d="M10 5h5v14h-5zM5 10h15v5H5zM80 56h5v14h-5zM75 61h15v5H75z"/></g>}
     </svg>
   )
 
@@ -261,9 +279,9 @@ function WorkApp() {
       <a href={LIVE_SITE} target="_blank" rel="noreferrer" className="os-featured-project">
         <div className="os-featured-icon"><AppWindow size={26} /></div>
         <div>
-          <span className="os-live-label"><i /> LIVE WEBSITE</span>
-        <h4>{ownerProfile.identity.osName} Website</h4>
-          <p>Open the current portfolio site on Vercel.</p>
+          <span className="os-live-label"><i /> EXISTING FORMA SITE</span>
+        <h4>Forma Studio Website</h4>
+          <p>Visit the separate Forma studio website. This portfolio has its own design and project.</p>
         </div>
         <ArrowUpRight size={19} />
       </a>

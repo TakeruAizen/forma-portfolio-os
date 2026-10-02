@@ -12,5 +12,6 @@
 | Baseline fake contact-form success behavior | Do not claim message delivery; link the visitor to the approved Instagram contact path pending a backend. |
 | Metadata, accessibility labels, notifications | Use Forma/Marco content only; no automatic domain greeting or invented contact details. |
 | Supplied portraits | Not Marco. Do not use as his portrait or recreate the identifiable people. |
+| User’s visual correction (2026-10-03) | Replace the inherited dark Forma opening, snowfall, grid, rings, and diamond with a distinct full-screen pixel sunset desktop, drifting clouds, swaying pixel flowers, and a custom non-identifiable character doodle. |
 
-Source review after implementation: the main route renders `PersonalOS`, not the old pricing or fake form components. Searches of the personalized routes found no old “Websites, shaped with purpose” or “Digital Web Studio” copy. Direct demo routes remain fictional/demo-disclosed. The stale generated `.next` output was not refreshed because dependency access prevented a build, so a built-output scan remains pending.
+Source review after the correction: `/` renders the portfolio desktop directly without the Forma opening sequence or snowfall. The portfolio has its own pixel-art sky, moving clouds, meadow, shortcut layout, and SVG doodle. The legacy intro preview route and its copied animation components were removed. Direct demo routes remain fictional/demo-disclosed.

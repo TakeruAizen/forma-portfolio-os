@@ -49,16 +49,16 @@ const structuredData = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: `${ownerProfile.identity.osName} — ${ownerProfile.identity.fullName}’s Personal OS`,
-  description: `Explore ${ownerProfile.identity.fullName}’s web development portfolio through the ${ownerProfile.identity.osName} desktop.`,
+  title: `${ownerProfile.identity.fullName} — Portfolio Desktop`,
+  description: `Explore ${ownerProfile.identity.fullName}’s web development portfolio through a pixel-art desktop experience.`,
   alternates: { canonical: siteUrl },
   openGraph: {
-    title: `${ownerProfile.identity.osName} — ${ownerProfile.identity.fullName}’s Personal OS`,
-    description: `Explore ${ownerProfile.identity.fullName}’s web development portfolio through the ${ownerProfile.identity.osName} desktop.`,
+    title: `${ownerProfile.identity.fullName} — Portfolio Desktop`,
+    description: `Explore ${ownerProfile.identity.fullName}’s web development portfolio through a pixel-art desktop experience.`,
     type: 'website',
     url: siteUrl,
   },
-  twitter: { card: 'summary', title: `${ownerProfile.identity.osName} — ${ownerProfile.identity.fullName}’s Personal OS`, description: `Explore ${ownerProfile.identity.fullName}’s web development portfolio through the ${ownerProfile.identity.osName} desktop.` },
+  twitter: { card: 'summary', title: `${ownerProfile.identity.fullName} — Portfolio Desktop`, description: `Explore ${ownerProfile.identity.fullName}’s web development portfolio through a pixel-art desktop experience.` },
   icons: { icon: '/icon.svg', apple: '/icon.svg' },
 }
 

@@ -29,11 +29,11 @@
     "canonicalLocation": "TBD; two image attachments were supplied",
     "approvedPhotoSources": ["ChatGPT Image Sep 27, 2026, 12_29_23 AM.png", "Eric roberts.jpg"],
     "assetPermissions": "TBD; photos are not Marco and are not used as likeness sources",
-    "protectedBackgroundAssets": ["Existing snowfall animation", "Opening sequence grid and transition", "Hero grid and rotating/floating rings"],
+    "protectedBackgroundAssets": ["Portfolio pixel sunset sky", "Drifting pixel clouds", "Swaying pixel meadow flowers"],
     "mobileMediaLimit": "No limit specified"
   },
   "companion": {
-    "direction": "Original pixel-editorial SVG mascot; it does not resemble either supplied reference person",
+    "direction": "Original pixel-art doodle of a generic young person, styled to match the supplied desktop reference without recreating its pictured people",
     "states": ["happy", "sad", "celebrating"],
     "behavior": "Local mood control only; no AI service or model is configured",
     "positionPersistence": "Reset to the safe corner on reload"

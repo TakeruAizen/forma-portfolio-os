@@ -1,6 +1,6 @@
-# Forma Personal Portfolio
+# Marco’s Portfolio Desktop
 
-Marco’s separate responsive personal portfolio, presented as an interactive desktop. This is an independent Next.js project and should be imported into its own Vercel project. It does not replace the original Forma website.
+Marco’s separate responsive portfolio, presented as a warm pixel-art desktop. The animated clouds, swaying meadow, shortcuts, and illustrated companion are built for this project. This is an independent Next.js project and Vercel deployment; it does not replace the original Forma website.
 
 ## Run locally
 
@@ -25,18 +25,16 @@ Open `http://localhost:3000`.
 - Analytics: Vercel Analytics loads in production only after the visitor opts in. Consent is session-scoped.
 - Contact: the supplied Forma Instagram profile. There is no email, booking provider, or contact-form backend configured.
 - Theme, text size, consent, and whiteboard notes use session storage; notes are not sent to a server and do not persist beyond the browser session.
-- No secrets or environment variables are required by the current implementation.
-- `.env.example` is included; it intentionally contains no variable names because no backend has been configured.
+- Set `NEXT_PUBLIC_SITE_URL` to this portfolio deployment’s full URL in Vercel so canonical metadata, `robots.txt`, and the sitemap point to the right project. `.env.example` contains a placeholder only.
 
 ## Routes
 
-- `/` — Forma desktop portfolio
+- `/` — Marco’s pixel-art portfolio desktop
 - `/blog` — journal index (no articles published yet)
 - `/work/noir`, `/work/north`, `/work/project-03`, `/work/project-04` — disclosed demo concepts
-- `/intro-preview` — existing intro animation preview
 
 ## Deploy
 
-Import the source folder into a Vercel project, use the detected Next.js build, and assign a domain when Marco has purchased one. A GitHub repository has not yet been connected to this local folder.
+The source is connected to [TakeruAizen/forma-portfolio-os](https://github.com/TakeruAizen/forma-portfolio-os). Import that repository into its own Vercel project; pushes to `main` deploy automatically. Use the Vercel URL until Marco purchases a custom domain.
 
 The repository license has not been selected.
