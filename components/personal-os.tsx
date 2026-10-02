@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import { AnimatePresence, motion, useDragControls } from 'motion/react'
 import {
-  AppWindow, ArrowUpRight, Check, ChevronDown,
-  CircleHelp, Code2, FileText, FolderOpen, Globe2, Instagram, Mail, Minus, Monitor,
+  AppWindow, ArrowUpRight, Camera, Check, ChevronDown,
+  CircleHelp, Code2, FileText, FolderOpen, Globe2, Mail, Minus, Monitor,
   Moon, MoreHorizontal, MoveUpRight, Plus, Search, Settings2, Sun, X,
 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from 'react'
@@ -22,7 +22,7 @@ const APPS: { id: AppId; name: string; subtitle: string; icon: typeof FolderOpen
   { id: 'services', name: 'What I Build', subtitle: 'Services', icon: Code2, tone: 'blue' },
   { id: 'notes', name: 'Whiteboard', subtitle: 'Sticky notes', icon: FileText, tone: 'yellow' },
   { id: 'browser', name: 'Web Browser', subtitle: 'Live website', icon: Globe2, tone: 'blue' },
-  { id: 'contact', name: 'Contact', subtitle: 'Instagram', icon: Instagram, tone: 'pink' },
+  { id: 'contact', name: 'Contact', subtitle: 'Instagram', icon: Camera, tone: 'pink' },
   { id: 'settings', name: 'Preferences', subtitle: 'Display', icon: Settings2, tone: 'slate' },
 ]
 
@@ -142,7 +142,7 @@ export function PersonalOS() {
               <p className="os-supporting">{ownerProfile.identity.intro}</p>
               <div className="os-welcome-actions">
                 <button onClick={() => openApp('work')} className="os-primary-btn">Explore my work <MoveUpRight size={16}/></button>
-                <button onClick={() => openApp('contact')} className="os-secondary-btn"><Instagram size={15}/> Say hello</button>
+                <button onClick={() => openApp('contact')} className="os-secondary-btn"><Camera size={15}/> Say hello</button>
               </div>
                 <button className="os-work-summary" onClick={() => openApp('work')}>
                 <span>WORKSPACE</span><b>1 live site · {DEMOS.length} fictional concepts</b><ArrowUpRight size={14}/>
@@ -400,7 +400,7 @@ function ContactApp() {
     <div className="os-app-page">
       <AppHeading eyebrow="CONNECTION / INSTAGRAM" title="Let’s talk about your website." copy="Instagram is the contact route supplied by Marco." />
       <a className="os-contact-card" href={INSTAGRAM} target="_blank" rel="noreferrer">
-        <span className="os-contact-icon"><Instagram size={24} /></span>
+        <span className="os-contact-icon"><Camera size={24} /></span>
         <span><b>{INSTAGRAM_HANDLE}</b><small>Open {ownerProfile.identity.osName} on Instagram</small></span>
         <ArrowUpRight size={18} />
       </a>
